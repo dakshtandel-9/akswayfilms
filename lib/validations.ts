@@ -95,6 +95,7 @@ export const reelsContentSchema = z.object({
   items: z.array(reelItemSchema),
 });
 export type ReelsContent = z.infer<typeof reelsContentSchema>;
+export type ReelItem = z.infer<typeof reelItemSchema>;
 
 // ---------- Contact ----------
 export const contactContentSchema = z.object({
