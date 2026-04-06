@@ -37,10 +37,20 @@ export type AboutContent = z.infer<typeof aboutContentSchema>;
 // Services removed — merged into Packages section
 
 // ---------- Portfolio ----------
+export const driveAlbumSchema = z.object({
+  id:          z.string(),
+  title:       z.string().min(1, "Title is required"),
+  category:    z.string().optional(),
+  drive_url:   z.string().url("Enter a valid Google Drive URL"),
+  description: z.string().optional(),
+});
+export type DriveAlbum = z.infer<typeof driveAlbumSchema>;
+
 export const portfolioContentSchema = z.object({
-  headline: z.string().min(1),
-  subheadline: z.string().optional(),
+  headline:             z.string().min(1),
+  subheadline:          z.string().optional(),
   show_category_filter: z.boolean().default(true),
+  drive_albums:         z.array(driveAlbumSchema).default([]),
 });
 export type PortfolioContent = z.infer<typeof portfolioContentSchema>;
 

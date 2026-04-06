@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 import { saveMediaRecord, deleteMedia, updateMediaMeta } from "@/actions/media";
 import { saveAndPublishSection } from "@/actions/sections";
 import { MEDIA_CATEGORIES, ACCEPTED_IMAGE_TYPES, ACCEPTED_VIDEO_TYPES, MAX_IMAGE_SIZE_BYTES, MAX_VIDEO_SIZE_BYTES } from "@/lib/constants";
-import type { PortfolioContent } from "@/lib/validations";
+import type { PortfolioContent, DriveAlbum } from "@/lib/validations";
 
 interface MediaItem {
   id: string;
@@ -25,6 +25,7 @@ export default function PortfolioEditor({ initialContent, initialMedia, hasDraft
   const [headline, setHeadline] = useState(initialContent.headline);
   const [subheadline, setSubheadline] = useState(initialContent.subheadline ?? "");
   const [showFilter, setShowFilter] = useState(initialContent.show_category_filter);
+  const [driveAlbums, setDriveAlbums] = useState<DriveAlbum[]>(initialContent.drive_albums ?? []);
   const [activeCategory, setActiveCategory] = useState("all");
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -87,9 +88,27 @@ export default function PortfolioEditor({ initialContent, initialMedia, hasDraft
     setMedia(prev => prev.map(m => m.id === id ? { ...m, category } : m));
   };
 
+  // ── Drive albums ──────────────────────────────────────────────────────────
+  const addDriveAlbum = () => {
+    const blank: DriveAlbum = { id: Date.now().toString(), title: "", category: "wedding", drive_url: "", description: "" };
+    setDriveAlbums(prev => [...prev, blank]);
+  };
+  const updateDriveAlbum = (id: string, patch: Partial<DriveAlbum>) => {
+    setDriveAlbums(prev => prev.map(a => a.id === id ? { ...a, ...patch } : a));
+  };
+  const removeDriveAlbum = (id: string) => {
+    if (!confirm("Remove this Drive album link?")) return;
+    setDriveAlbums(prev => prev.filter(a => a.id !== id));
+  };
+
   const onPublish = async () => {
     setSaving(true);
-    const result = await saveAndPublishSection("portfolio", { headline, subheadline, show_category_filter: showFilter });
+    const result = await saveAndPublishSection("portfolio", {
+      headline,
+      subheadline,
+      show_category_filter: showFilter,
+      drive_albums: driveAlbums,
+    });
     setSaving(false);
     result.error ? notify("error", result.error) : notify("success", "Portfolio settings published!");
   };
@@ -254,6 +273,89 @@ export default function PortfolioEditor({ initialContent, initialMedia, hasDraft
                     placeholder="Alt text..."
                     style={{ ...inputStyle, padding: "0.35rem 0.5rem", fontSize: "0.75rem" }}
                   />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Drive Albums */}
+      <div style={{ background: "#1A1A1A", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "12px", padding: "1.5rem" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+          <div>
+            <h3 style={{ color: "#E0E0E0", fontSize: "0.9rem", fontWeight: 600, fontFamily: "system-ui", margin: 0 }}>
+              Google Drive Albums
+            </h3>
+            <p style={{ color: "#666", fontSize: "0.78rem", fontFamily: "system-ui", margin: "4px 0 0" }}>
+              Add Google Drive folder links — visitors can click to view full albums.
+            </p>
+          </div>
+          <button
+            onClick={addDriveAlbum}
+            style={{ padding: "0.5rem 1rem", background: "rgba(212,175,55,0.12)", border: "1px solid rgba(212,175,55,0.4)", borderRadius: "8px", color: "#D4AF37", fontSize: "0.8rem", fontFamily: "system-ui", cursor: "pointer", whiteSpace: "nowrap" }}
+          >
+            + Add Album
+          </button>
+        </div>
+
+        {driveAlbums.length === 0 ? (
+          <div style={{ textAlign: "center", padding: "2.5rem", color: "#555", fontFamily: "system-ui", fontSize: "0.875rem", border: "1px dashed rgba(255,255,255,0.08)", borderRadius: "8px" }}>
+            No Drive albums yet. Click &quot;+ Add Album&quot; to link a Google Drive folder.
+          </div>
+        ) : (
+          <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {driveAlbums.map((album) => (
+              <div key={album.id} style={{ background: "#111", border: "1px solid rgba(255,255,255,0.07)", borderRadius: "10px", padding: "1rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                  <div>
+                    <label style={labelStyle}>Album Title *</label>
+                    <input
+                      type="text"
+                      value={album.title}
+                      onChange={e => updateDriveAlbum(album.id, { title: e.target.value })}
+                      placeholder="e.g. Priya & Arjun Wedding"
+                      style={inputStyle}
+                    />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Category</label>
+                    <select
+                      value={album.category ?? "wedding"}
+                      onChange={e => updateDriveAlbum(album.id, { category: e.target.value })}
+                      style={{ ...inputStyle, cursor: "pointer" }}
+                    >
+                      {MEDIA_CATEGORIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label style={labelStyle}>Google Drive URL *</label>
+                  <input
+                    type="url"
+                    value={album.drive_url}
+                    onChange={e => updateDriveAlbum(album.id, { drive_url: e.target.value })}
+                    placeholder="https://drive.google.com/drive/folders/..."
+                    style={inputStyle}
+                  />
+                </div>
+                <div style={{ display: "flex", gap: "0.75rem", alignItems: "flex-end" }}>
+                  <div style={{ flex: 1 }}>
+                    <label style={labelStyle}>Short Description (optional)</label>
+                    <input
+                      type="text"
+                      value={album.description ?? ""}
+                      onChange={e => updateDriveAlbum(album.id, { description: e.target.value })}
+                      placeholder="e.g. 200+ photos from the celebration"
+                      style={inputStyle}
+                    />
+                  </div>
+                  <button
+                    onClick={() => removeDriveAlbum(album.id)}
+                    style={{ padding: "0.6rem 1rem", background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)", borderRadius: "8px", color: "#ef4444", fontSize: "0.8rem", fontFamily: "system-ui", cursor: "pointer", whiteSpace: "nowrap", flexShrink: 0 }}
+                  >
+                    Remove
+                  </button>
                 </div>
               </div>
             ))}

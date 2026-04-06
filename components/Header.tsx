@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 /* ─── Nav data ────────────────────────────────────────── */
 const NAV_LINKS = [
@@ -27,9 +28,12 @@ function useActiveSection() {
 
 /* ─── Component ─────────────────────────────────────── */
 export default function Header() {
+  const pathname = usePathname();
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const active                      = useActiveSection();
+
+  if (pathname?.startsWith("/dashboard") || pathname === "/login") return null;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -73,6 +77,7 @@ export default function Header() {
             alignItems:     "center",
             justifyContent: "space-between",
             width:          "100%",
+            maxWidth:       "1440px",
             margin:         "0 auto",
             padding:        "0 clamp(20px, 4vw, 96px)",
           }}
@@ -114,7 +119,7 @@ export default function Header() {
             <span
               style={{
                 fontFamily:    "var(--font-display)",
-                fontSize:      "clamp(22px, 3vw, 28px)",
+                fontSize:      "clamp(26px, 2.4vw, 34px)",
                 fontWeight:    400,
                 letterSpacing: "0.12em",
                 color:         "#FFFFFF",
@@ -140,9 +145,9 @@ export default function Header() {
                   id={`nav-${link.name.toLowerCase()}`}
                   style={{
                     fontFamily:    "var(--font-display)",
-                    fontSize:      "clamp(13px, 1.2vw, 15px)",
+                    fontSize:      "clamp(18px, 1.5vw, 22px)",
                     fontWeight:    400,
-                    letterSpacing: "0.08em",
+                    letterSpacing: "0.1em",
                     textTransform: "uppercase",
                     color:          isActive ? "#D4AF37" : scrolled ? "rgba(160,160,160,1)" : "rgba(255,255,255,0.9)",
                     textDecoration: "none",
@@ -178,15 +183,15 @@ export default function Header() {
               id="header-cta-book"
               style={{
                 fontFamily:     "var(--font-display)",
-                fontSize:       "13px",
+                fontSize:       "clamp(16px, 1.3vw, 20px)",
                 fontWeight:     400,
-                letterSpacing:  "0.1em",
+                letterSpacing:  "0.12em",
                 textTransform:  "uppercase",
                 color:          "#D4AF37",
                 textDecoration: "none",
                 border:         "1px solid #D4AF37",
                 borderRadius:   "var(--radius-md)",
-                padding:        "7px 20px",
+                padding:        "6px 22px",
                 transition:     "background 200ms cubic-bezier(0.25,0,0,1), color 200ms cubic-bezier(0.25,0,0,1), transform 200ms cubic-bezier(0.25,0,0,1)",
                 display:        "inline-block",
                 whiteSpace:     "nowrap",
@@ -318,9 +323,9 @@ export default function Header() {
           onClick={closeMobile}
           style={{
             fontFamily:      "var(--font-display)",
-            fontSize:        "15px",
+            fontSize:        "20px",
             fontWeight:      400,
-            letterSpacing:   "0.12em",
+            letterSpacing:   "0.14em",
             textTransform:   "uppercase",
             color:           "#0A0A0A",
             textDecoration:  "none",

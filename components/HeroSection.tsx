@@ -139,139 +139,154 @@ export default function HeroSection({ slides }: HeroSectionProps) {
         }}
       />
 
-      {/* ── Text content ── */}
+      {/* ── Centering wrapper — matches maxWidth of all other sections ── */}
       <div
-        className="hero-text-col absolute top-0 bottom-0 left-0 flex flex-col justify-center"
-        style={{ zIndex: 110 }}
+        style={{
+          position:  "absolute",
+          top:       0,
+          bottom:    0,
+          left:      "50%",
+          transform: "translateX(-50%)",
+          width:     "100%",
+          maxWidth:  "1440px",
+          zIndex:    110,
+          pointerEvents: "none",
+        }}
       >
-        <div className="hero-content-inner">
-          {/* Subheadline */}
-          <p
-            key={`sub-${current}`}
-            className="hero-text hero-sub uppercase font-medium"
-            style={{
-              fontFamily:    "var(--font-display)",
-              color:         "#D4AF37",
-              letterSpacing: "0.3em",
-              marginBottom:  "12px",
-            }}
-          >
-            {slide.subheadline}
-          </p>
-
-          {/* Main headline */}
-          <h1
-            key={`h-${current}`}
-            className="hero-text hero-h1 text-white leading-tight"
-            style={{
-              fontFamily:    "var(--font-display)",
-              animationDelay:"80ms",
-              margin:        0,
-            }}
-          >
-            {slide.headline}
-          </h1>
-
-          {/* CTA */}
-          {slide.cta_text && slide.cta_link && (
-            <a
-              key={`cta-${current}`}
-              href={slide.cta_link}
-              className="hero-text hero-cta-btn"
+        {/* ── Text content ── */}
+        <div
+          className="hero-text-col absolute top-0 bottom-0 left-0 flex flex-col justify-center"
+          style={{ pointerEvents: "all" }}
+        >
+          <div className="hero-content-inner">
+            {/* Subheadline */}
+            <p
+              key={`sub-${current}`}
+              className="hero-text hero-sub uppercase font-medium"
               style={{
-                fontFamily:     "var(--font-display)",
-                animationDelay: "160ms",
-                display:        "inline-block",
-                border:         "1px solid #D4AF37",
-                color:          "#D4AF37",
-                textTransform:  "uppercase",
-                letterSpacing:  "0.12em",
-                textDecoration: "none",
-                transition:     "background 200ms ease, color 200ms ease",
-                borderRadius:   "6px",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "#D4AF37";
-                (e.currentTarget as HTMLAnchorElement).style.color      = "#0A0A0A";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
-                (e.currentTarget as HTMLAnchorElement).style.color      = "#D4AF37";
+                fontFamily:    "var(--font-display)",
+                color:         "#D4AF37",
+                letterSpacing: "0.3em",
+                marginBottom:  "12px",
               }}
             >
-              {slide.cta_text}
-            </a>
-          )}
-        </div>
-      </div>
+              {slide.subheadline}
+            </p>
 
-      {/* ── Bottom controls — unified bar ── */}
-      {n > 1 && (
-        <div className="hero-bottom-bar" style={{ zIndex: 40 }}>
-
-          {/* Prev / Next arrows */}
-          <div className="flex gap-3 flex-shrink-0">
-            <button
-              onClick={prev}
-              aria-label="Previous slide"
-              className="hero-arrow-btn flex items-center justify-center rounded-full border border-white/20 text-white/50 hover:border-white/50 hover:text-white transition-all bg-white/5 hover:bg-white/10"
+            {/* Main headline */}
+            <h1
+              key={`h-${current}`}
+              className="hero-text hero-h1 text-white leading-tight"
+              style={{
+                fontFamily:    "var(--font-display)",
+                animationDelay:"80ms",
+                margin:        0,
+              }}
             >
-              <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
-                <path d="M8.5 4L5.5 7L8.5 10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button
-              onClick={next}
-              aria-label="Next slide"
-              className="hero-arrow-btn flex items-center justify-center rounded-full border border-white/20 text-white/50 hover:border-white/50 hover:text-white transition-all bg-white/5 hover:bg-white/10"
-            >
-              <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
-                <path d="M5.5 4L8.5 7L5.5 10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
+              {slide.headline}
+            </h1>
 
-          {/* Progress line — desktop only */}
-          <div className="hero-progress-line">
-            <div
-              className="absolute left-0 top-0 h-full bg-[#D4AF37] transition-all duration-500 ease-out"
-              style={{ width: `${((current + 1) / n) * 100}%` }}
-            />
-          </div>
-
-          {/* Slide number — desktop only */}
-          <div
-            className="hero-slide-count select-none flex-shrink-0"
-            style={{ fontFamily: "var(--font-display)", color: "rgba(255,255,255,0.9)" }}
-          >
-            <span className="hero-slide-num">
-              {(current + 1).toString().padStart(2, "0")}
-            </span>
-          </div>
-
-          {/* Dots — mobile only */}
-          <div className="hero-dots">
-            {Array.from({ length: n }).map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goTo(i)}
-                aria-label={`Go to slide ${i + 1}`}
+            {/* CTA */}
+            {slide.cta_text && slide.cta_link && (
+              <a
+                key={`cta-${current}`}
+                href={slide.cta_link}
+                className="hero-text hero-cta-btn"
                 style={{
-                  width:        i === current ? "24px" : "6px",
-                  height:       "6px",
-                  borderRadius: "3px",
-                  background:   i === current ? "#D4AF37" : "rgba(255,255,255,0.35)",
-                  border:       "none",
-                  cursor:       "pointer",
-                  padding:      0,
-                  transition:   "width 300ms ease, background 300ms ease",
+                  fontFamily:     "var(--font-display)",
+                  animationDelay: "160ms",
+                  display:        "inline-block",
+                  border:         "1px solid #D4AF37",
+                  color:          "#D4AF37",
+                  textTransform:  "uppercase",
+                  letterSpacing:  "0.12em",
+                  textDecoration: "none",
+                  transition:     "background 200ms ease, color 200ms ease",
+                  borderRadius:   "6px",
                 }}
-              />
-            ))}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "#D4AF37";
+                  (e.currentTarget as HTMLAnchorElement).style.color      = "#0A0A0A";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                  (e.currentTarget as HTMLAnchorElement).style.color      = "#D4AF37";
+                }}
+              >
+                {slide.cta_text}
+              </a>
+            )}
           </div>
-
         </div>
-      )}
+
+        {/* ── Bottom controls — unified bar ── */}
+        {n > 1 && (
+          <div className="hero-bottom-bar" style={{ pointerEvents: "all" }}>
+
+            {/* Prev / Next arrows */}
+            <div className="flex gap-3 flex-shrink-0">
+              <button
+                onClick={prev}
+                aria-label="Previous slide"
+                className="hero-arrow-btn flex items-center justify-center rounded-full border border-white/20 text-white/50 hover:border-white/50 hover:text-white transition-all bg-white/5 hover:bg-white/10"
+              >
+                <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
+                  <path d="M8.5 4L5.5 7L8.5 10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <button
+                onClick={next}
+                aria-label="Next slide"
+                className="hero-arrow-btn flex items-center justify-center rounded-full border border-white/20 text-white/50 hover:border-white/50 hover:text-white transition-all bg-white/5 hover:bg-white/10"
+              >
+                <svg width="18" height="18" viewBox="0 0 14 14" fill="none">
+                  <path d="M5.5 4L8.5 7L5.5 10" stroke="currentColor" strokeWidth="0.8" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Progress line — desktop only */}
+            <div className="hero-progress-line">
+              <div
+                className="absolute left-0 top-0 h-full bg-[#D4AF37] transition-all duration-500 ease-out"
+                style={{ width: `${((current + 1) / n) * 100}%` }}
+              />
+            </div>
+
+            {/* Slide number — desktop only */}
+            <div
+              className="hero-slide-count select-none flex-shrink-0"
+              style={{ fontFamily: "var(--font-display)", color: "rgba(255,255,255,0.9)" }}
+            >
+              <span className="hero-slide-num">
+                {(current + 1).toString().padStart(2, "0")}
+              </span>
+            </div>
+
+            {/* Dots — mobile only */}
+            <div className="hero-dots">
+              {Array.from({ length: n }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                  style={{
+                    width:        i === current ? "24px" : "6px",
+                    height:       "6px",
+                    borderRadius: "3px",
+                    background:   i === current ? "#D4AF37" : "rgba(255,255,255,0.35)",
+                    border:       "none",
+                    cursor:       "pointer",
+                    padding:      0,
+                    transition:   "width 300ms ease, background 300ms ease",
+                  }}
+                />
+              ))}
+            </div>
+
+          </div>
+        )}
+      </div>
 
       {/* ── Thumbnail strip — desktop only ── */}
       {n > 1 && (
@@ -402,17 +417,17 @@ export default function HeroSection({ slides }: HeroSectionProps) {
           position:   absolute;
           top:        50%;
           left:       50%;
-          transform:  translate(0, -50%);
-          width:      clamp(300px, 46vw, 820px);
+          right:      0;
+          transform:  translateY(-50%);
           display:    flex;
           flex-direction: row;
           gap:        12px;
           overflow:   hidden;
-          padding:    20px;
+          padding:    20px 0 20px 16px;
         }
         .hero-thumb {
           position:     relative;
-          width:        clamp(90px, calc((46vw - 40px) / 3.6), 210px);
+          width:        calc((50vw - 52px) / 3.5);
           flex-shrink:  0;
           aspect-ratio: 9 / 14;
           border-radius: 18px;
@@ -430,7 +445,7 @@ export default function HeroSection({ slides }: HeroSectionProps) {
           transition:   transform 0.2s ease, border-color 0.2s ease;
         }
         .hero-thumbs-row.shifting .hero-thumb {
-          transform: translateX(calc(-1 * (clamp(90px, calc((46vw - 40px) / 3.6), 210px) + 12px)));
+          transform: translateX(calc(-1 * (calc((50vw - 52px) / 3.5) + 12px)));
           transition:
             transform ${TRANSITION_MS}ms ease-in,
             opacity   350ms ease;
@@ -439,7 +454,7 @@ export default function HeroSection({ slides }: HeroSectionProps) {
 
         @keyframes thumbSlideIn {
           from { transform: translateX(0); }
-          to   { transform: translateX(calc(-1 * (clamp(90px, calc((46vw - 40px) / 3.6), 210px) + 12px))); }
+          to   { transform: translateX(calc(-1 * (calc((50vw - 52px) / 3.5) + 12px))); }
         }
         .hero-thumbs-row.shifting .hero-thumb.thumb-enter {
           animation: thumbSlideIn ${TRANSITION_MS}ms ease-in forwards;
@@ -470,18 +485,17 @@ export default function HeroSection({ slides }: HeroSectionProps) {
           .hero-thumbs-row {
             top:       50%;
             left:      50%;
-            right:     auto;
-            width:     48vw;
+            right:     0;
             transform: translateY(-50%);
             flex-direction: row;
             gap:       10px;
-            padding:   12px;
+            padding:   12px 0 12px 12px;
             overflow:  hidden;
           }
           /* Show only 2 thumbnails on tablet */
           .hero-thumb:nth-child(n+3) { display: none !important; }
           .hero-thumb {
-            width:     calc((48vw - 44px) / 2);
+            width:     calc((50vw - 22px) / 2);
             max-width: none;
           }
 
@@ -503,18 +517,17 @@ export default function HeroSection({ slides }: HeroSectionProps) {
             top:       auto;
             bottom:    clamp(72px, 13vh, 100px);
             left:      50%;
-            right:     auto;
-            width:     calc(50vw - 4px);
+            right:     0;
             transform: none;
             flex-direction: row;
             gap:       6px;
-            padding:   8px;
+            padding:   8px 0 8px 6px;
             overflow:  hidden;
           }
           /* Show only 2 thumbnails on mobile */
           .hero-thumb:nth-child(n+3) { display: none !important; }
           .hero-thumb {
-            width:         calc((50vw - 38px) / 2);
+            width:         calc((50vw - 12px) / 2);
             max-width:     none;
             border-radius: 12px;
             border-width:  1px;
@@ -523,7 +536,7 @@ export default function HeroSection({ slides }: HeroSectionProps) {
 
           /* Fix sliding animation to use actual mobile thumb width */
           .hero-thumbs-row.shifting .hero-thumb {
-            transform: translateX(calc(-1 * (calc((50vw - 38px) / 2) + 6px)));
+            transform: translateX(calc(-1 * (calc((50vw - 12px) / 2) + 6px)));
           }
 
           /* Hide slide count & progress line — show dots */
@@ -570,7 +583,7 @@ export default function HeroSection({ slides }: HeroSectionProps) {
         @media (max-width: 480px) {
           .hero-h1  { font-size: clamp(24px, 8.5vw, 38px); }
           .hero-sub { letter-spacing: 0.2em; }
-          .hero-thumbs-row { gap: 4px; padding: 6px; }
+          .hero-thumbs-row { gap: 4px; padding: 6px 0 6px 4px; }
         }
       `}</style>
     </section>
