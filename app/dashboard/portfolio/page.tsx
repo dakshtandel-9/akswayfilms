@@ -7,6 +7,7 @@ const defaultContent: PortfolioContent = {
   headline: "Our Work",
   subheadline: "A glimpse into the stories we have told",
   show_category_filter: true,
+  drive_albums: [],
 };
 
 export default async function PortfolioPage() {
