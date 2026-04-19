@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { uploadToCloudinary } from "@/actions/cloudinary";
 import { saveDraft, saveAndPublishSection } from "@/actions/sections";
 import PublishBar from "@/components/dashboard/PublishBar";
 import type { HeroSlide, HeroContent } from "@/lib/validations";
@@ -67,23 +67,17 @@ export default function HeroEditor({ initialContent, hasDraft, publishedAt }: He
     }
 
     setUploadingId(slideId);
-    setUploadProgress(10);
+    setUploadProgress(20);
 
     try {
-      const supabase = createClient();
-      const ext = file.name.split(".").pop();
-      const path = `hero/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const formData = new FormData();
+      formData.append("file", file);
 
-      setUploadProgress(30);
-      const { data, error } = await supabase.storage
-        .from("aksway-media")
-        .upload(path, file, { contentType: file.type });
+      setUploadProgress(40);
+      const result = await uploadToCloudinary(formData, "hero");
+      if ("error" in result) throw new Error(result.error);
 
-      if (error) throw new Error(error.message);
-      setUploadProgress(80);
-
-      const { data: urlData } = supabase.storage.from("aksway-media").getPublicUrl(data.path);
-      updateSlide(slideId, { image_url: urlData.publicUrl });
+      updateSlide(slideId, { image_url: result.url });
       setUploadProgress(100);
       notify("success", "Image uploaded!");
     } catch (err) {

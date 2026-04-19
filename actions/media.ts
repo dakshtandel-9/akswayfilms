@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
+import { deleteFromCloudinary } from "@/actions/cloudinary";
 import type { MediaUploadInput } from "@/lib/validations";
 
 // Fetch all media, optionally filtered by section or category
@@ -46,19 +47,12 @@ export async function saveMediaRecord(
   return { success: true, media: data };
 }
 
-// Delete a media record AND the underlying storage file
-export async function deleteMedia(id: string, storagePath: string) {
+// Delete a media record AND the underlying Cloudinary asset
+export async function deleteMedia(id: string, cloudinaryPublicId: string, resourceType: "image" | "video" = "image") {
   const supabase = await createClient();
 
-  // Remove from storage
-  const { error: storageError } = await supabase.storage
-    .from("aksway-media")
-    .remove([storagePath]);
-
-  if (storageError) {
-    console.error("Storage delete error:", storageError);
-    // Continue even if storage delete fails — remove DB record
-  }
+  // Remove from Cloudinary
+  await deleteFromCloudinary(cloudinaryPublicId, resourceType);
 
   // Remove DB record
   const { error } = await supabase.from("media").delete().eq("id", id);
@@ -92,16 +86,4 @@ export async function reorderMedia(orderedIds: string[]) {
   revalidatePath("/");
   revalidatePath("/dashboard");
   return { success: true };
-}
-
-// Get a signed upload URL (for large files using TUS protocol)
-export async function getSignedUploadUrl(fileName: string, contentType: string) {
-  const supabase = await createClient();
-  const path = `uploads/${Date.now()}-${fileName}`;
-  const { data, error } = await supabase.storage
-    .from("aksway-media")
-    .createSignedUploadUrl(path);
-
-  if (error) return { error: error.message };
-  return { signedUrl: data.signedUrl, token: data.token, path };
 }

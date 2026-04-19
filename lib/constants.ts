@@ -50,5 +50,5 @@ export const ACCEPTED_VIDEO_TYPES = ["video/mp4", "video/webm", "video/mov", "vi
 export const BUSINESS_INFO = {
   name: "Aksway Photography",
   location: "Honnavar, Karnataka",
-  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "919XXXXXXXXX",
+  whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
 };

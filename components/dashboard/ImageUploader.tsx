@@ -1,15 +1,14 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { uploadToCloudinary } from "@/actions/cloudinary";
 import { saveMediaRecord } from "@/actions/media";
 import { ACCEPTED_IMAGE_TYPES, MAX_IMAGE_SIZE_BYTES, MAX_IMAGE_SIZE_MB } from "@/lib/constants";
 
 interface ImageUploaderProps {
-  bucket?: string;
   folder?: string;
   currentUrl?: string;
-  onUploadComplete: (url: string, path: string) => void;
+  onUploadComplete: (url: string, publicId: string) => void;
   label?: string;
   hint?: string;
   saveToMediaTable?: boolean;
@@ -18,7 +17,6 @@ interface ImageUploaderProps {
 }
 
 export default function ImageUploader({
-  bucket = "aksway-media",
   folder = "general",
   currentUrl,
   onUploadComplete,
@@ -52,30 +50,20 @@ export default function ImageUploader({
 
     setPreview(URL.createObjectURL(file));
     setUploading(true);
-    setProgress(10);
+    setProgress(20);
 
     try {
-      const ext = file.name.split(".").pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-      const storagePath = `${folder}/${fileName}`;
+      const formData = new FormData();
+      formData.append("file", file);
 
-      const supabase = createClient();
-      setProgress(30);
+      setProgress(40);
+      const result = await uploadToCloudinary(formData, folder);
+      if ("error" in result) throw new Error(result.error);
 
-      const { data, error: uploadError } = await supabase.storage
-        .from(bucket)
-        .upload(storagePath, file, { upsert: false, contentType: file.type });
-
-      if (uploadError) throw new Error(uploadError.message);
-      setProgress(70);
-
-      const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(data.path);
-      const publicUrl = urlData.publicUrl;
-
-      setProgress(90);
+      setProgress(80);
 
       if (saveToMediaTable) {
-        await saveMediaRecord(publicUrl, storagePath, file.name, "image", file.size, {
+        await saveMediaRecord(result.url, result.publicId, file.name, "image", file.size, {
           category: category as "wedding" | "haldi" | "prewedding" | "cinematic" | "other" | "general",
           alt_text: altText,
           sort_order: 0,
@@ -83,7 +71,7 @@ export default function ImageUploader({
       }
 
       setProgress(100);
-      onUploadComplete(publicUrl, storagePath);
+      onUploadComplete(result.url, result.publicId);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload failed.");
       setPreview(currentUrl || null);

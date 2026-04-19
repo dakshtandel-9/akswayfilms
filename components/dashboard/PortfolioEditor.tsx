@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { uploadToCloudinary } from "@/actions/cloudinary";
 import { saveMediaRecord, deleteMedia, updateMediaMeta } from "@/actions/media";
 import { saveAndPublishSection } from "@/actions/sections";
 import { MEDIA_CATEGORIES, ACCEPTED_IMAGE_TYPES, ACCEPTED_VIDEO_TYPES, MAX_IMAGE_SIZE_BYTES, MAX_VIDEO_SIZE_BYTES } from "@/lib/constants";
@@ -36,7 +36,6 @@ export default function PortfolioEditor({ initialContent, initialMedia, hasDraft
 
   const handleFileUpload = async (files: FileList, category: string) => {
     setUploading(true);
-    const supabase = createClient();
     const total = files.length;
     let done = 0;
 
@@ -47,14 +46,12 @@ export default function PortfolioEditor({ initialContent, initialMedia, hasDraft
       if (isImage && file.size > MAX_IMAGE_SIZE_BYTES) { notify("error", `${file.name} is too large (max 10MB)`); done++; continue; }
       if (isVideo && file.size > MAX_VIDEO_SIZE_BYTES) { notify("error", `${file.name} is too large (max 100MB)`); done++; continue; }
 
-      const ext = file.name.split(".").pop();
-      const storagePath = `portfolio/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      const formData = new FormData();
+      formData.append("file", file);
+      const upload = await uploadToCloudinary(formData, "portfolio");
+      if ("error" in upload) { notify("error", `Failed to upload ${file.name}`); done++; continue; }
 
-      const { data, error } = await supabase.storage.from("aksway-media").upload(storagePath, file, { contentType: file.type });
-      if (error) { notify("error", `Failed to upload ${file.name}`); done++; continue; }
-
-      const { data: urlData } = supabase.storage.from("aksway-media").getPublicUrl(data.path);
-      const result = await saveMediaRecord(urlData.publicUrl, storagePath, file.name, isImage ? "image" : "video", file.size, {
+      const result = await saveMediaRecord(upload.url, upload.publicId, file.name, isImage ? "image" : "video", file.size, {
         category: category as "wedding" | "haldi" | "prewedding" | "cinematic" | "other" | "general",
         alt_text: "",
         sort_order: media.length + done,
@@ -72,7 +69,7 @@ export default function PortfolioEditor({ initialContent, initialMedia, hasDraft
 
   const handleDelete = async (item: MediaItem) => {
     if (!confirm(`Delete "${item.file_name}"? This cannot be undone.`)) return;
-    const result = await deleteMedia(item.id, item.storage_path);
+    const result = await deleteMedia(item.id, item.storage_path, item.media_type);
     if (result.error) { notify("error", result.error); return; }
     setMedia(prev => prev.filter(m => m.id !== item.id));
     notify("success", "File deleted.");
