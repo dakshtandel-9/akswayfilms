@@ -18,7 +18,7 @@ const STATS = [
   { label: "Years Experience", getValue: (c: AboutContent) => c.years_experience ?? 7 },
   { label: "Weddings Captured", getValue: () => 50 },
   { label: "Happy Couples", getValue: () => 50 },
-  { label: "Cities Covered", getValue: () => 15 },
+  { label: "Cities Covered", getValue: () => 10 },
 ];
 
 export default function AboutSection({ content }: AboutSectionProps) {
