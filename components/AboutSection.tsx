@@ -16,9 +16,9 @@ const FALLBACK: AboutContent = {
 
 const STATS = [
   { label: "Years Experience", getValue: (c: AboutContent) => c.years_experience ?? 7 },
-  { label: "Weddings Captured", getValue: () => 200 },
-  { label: "Happy Couples",     getValue: () => 180 },
-  { label: "Cities Covered",    getValue: () => 15 },
+  { label: "Weddings Captured", getValue: () => 50 },
+  { label: "Happy Couples", getValue: () => 50 },
+  { label: "Cities Covered", getValue: () => 15 },
 ];
 
 export default function AboutSection({ content }: AboutSectionProps) {
@@ -28,29 +28,29 @@ export default function AboutSection({ content }: AboutSectionProps) {
     <section
       id="about"
       style={{
-        background:  "rgb(10,10,10)",
-        padding:     "clamp(64px, 10vh, 120px) 0",
-        overflow:    "hidden",
-        position:    "relative",
+        background: "rgb(10,10,10)",
+        padding: "clamp(64px, 10vh, 120px) 0",
+        overflow: "hidden",
+        position: "relative",
       }}
     >
       {/* Background text watermark */}
       <span
         aria-hidden="true"
         style={{
-          position:      "absolute",
-          top:           "50%",
-          left:          "50%",
-          transform:     "translate(-50%, -50%)",
-          fontFamily:    "var(--font-display)",
-          fontSize:      "clamp(80px, 18vw, 220px)",
-          color:         "rgba(212,175,55,0.03)",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(80px, 18vw, 220px)",
+          color: "rgba(212,175,55,0.03)",
           letterSpacing: "0.08em",
-          lineHeight:    1,
-          whiteSpace:    "nowrap",
-          userSelect:    "none",
+          lineHeight: 1,
+          whiteSpace: "nowrap",
+          userSelect: "none",
           pointerEvents: "none",
-          zIndex:        0,
+          zIndex: 0,
         }}
       >
         STORY
@@ -59,11 +59,11 @@ export default function AboutSection({ content }: AboutSectionProps) {
       <div
         className="about-container"
         style={{
-          maxWidth:  "1440px",
-          margin:    "0 auto",
-          padding:   "0 clamp(20px, 4vw, 96px)",
-          position:  "relative",
-          zIndex:    1,
+          maxWidth: "1440px",
+          margin: "0 auto",
+          padding: "0 clamp(20px, 4vw, 96px)",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         <div className="about-grid">
@@ -74,19 +74,19 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {/* Section label */}
             <div
               style={{
-                display:     "flex",
-                alignItems:  "center",
-                gap:         "12px",
-                marginBottom:"28px",
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                marginBottom: "28px",
               }}
             >
               <span style={{ width: "32px", height: "1px", background: "#D4AF37", display: "block" }} />
               <span
                 style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "13px",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "13px",
                   letterSpacing: "0.2em",
-                  color:         "#D4AF37",
+                  color: "#D4AF37",
                   textTransform: "uppercase",
                 }}
               >
@@ -98,12 +98,12 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {/* Headline */}
             <h2
               style={{
-                fontFamily:    "var(--font-display)",
-                fontSize:      "clamp(40px, 5vw, 72px)",
-                lineHeight:    1.0,
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(40px, 5vw, 72px)",
+                lineHeight: 1.0,
                 letterSpacing: "0.02em",
-                color:         "#FFFFFF",
-                marginBottom:  "28px",
+                color: "#FFFFFF",
+                marginBottom: "28px",
               }}
             >
               {c.headline}
@@ -112,9 +112,9 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {/* Gold divider */}
             <div
               style={{
-                width:        "60px",
-                height:       "2px",
-                background:   "linear-gradient(90deg, #D4AF37, transparent)",
+                width: "60px",
+                height: "2px",
+                background: "linear-gradient(90deg, #D4AF37, transparent)",
                 marginBottom: "28px",
               }}
             />
@@ -122,12 +122,12 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {/* Bio */}
             <p
               style={{
-                fontFamily:  "var(--font-display)",
-                fontSize:    "clamp(15px, 1.4vw, 19px)",
-                lineHeight:  1.8,
-                color:       "rgba(200,200,200,0.85)",
-                marginBottom:"40px",
-                maxWidth:    "540px",
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(15px, 1.4vw, 19px)",
+                lineHeight: 1.8,
+                color: "rgba(200,200,200,0.85)",
+                marginBottom: "40px",
+                maxWidth: "540px",
                 letterSpacing: "0.03em",
               }}
             >
@@ -138,25 +138,25 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {c.location && (
               <div
                 style={{
-                  display:      "inline-flex",
-                  alignItems:   "center",
-                  gap:          "8px",
-                  border:       "1px solid rgba(212,175,55,0.3)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "8px",
+                  border: "1px solid rgba(212,175,55,0.3)",
                   borderRadius: "4px",
-                  padding:      "8px 16px",
+                  padding: "8px 16px",
                   marginBottom: "48px",
                 }}
               >
                 {/* Pin icon */}
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="#D4AF37"/>
+                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z" fill="#D4AF37" />
                 </svg>
                 <span
                   style={{
-                    fontFamily:    "var(--font-display)",
-                    fontSize:      "14px",
+                    fontFamily: "var(--font-display)",
+                    fontSize: "14px",
                     letterSpacing: "0.1em",
-                    color:         "#D4AF37",
+                    color: "#D4AF37",
                   }}
                 >
                   {c.location}
@@ -173,24 +173,24 @@ export default function AboutSection({ content }: AboutSectionProps) {
                 >
                   <span
                     style={{
-                      fontFamily:    "var(--font-display)",
-                      fontSize:      "clamp(40px, 4vw, 60px)",
-                      color:         "#D4AF37",
-                      lineHeight:    1,
-                      display:       "block",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "clamp(40px, 4vw, 60px)",
+                      color: "#D4AF37",
+                      lineHeight: 1,
+                      display: "block",
                     }}
                   >
                     {stat.getValue(c)}+
                   </span>
                   <span
                     style={{
-                      fontFamily:    "var(--font-display)",
-                      fontSize:      "12px",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "12px",
                       letterSpacing: "0.12em",
-                      color:         "rgba(160,160,160,0.8)",
+                      color: "rgba(160,160,160,0.8)",
                       textTransform: "uppercase",
-                      marginTop:     "6px",
-                      display:       "block",
+                      marginTop: "6px",
+                      display: "block",
                     }}
                   >
                     {stat.label}
@@ -204,13 +204,13 @@ export default function AboutSection({ content }: AboutSectionProps) {
           <div className="about-photo-col">
             <div
               style={{
-                position:     "relative",
+                position: "relative",
                 borderRadius: "16px",
-                overflow:     "hidden",
-                aspectRatio:  "3/4",
-                width:        "100%",
-                background:   "rgb(26,26,26)",
-                border:       "1px solid rgba(255,255,255,0.06)",
+                overflow: "hidden",
+                aspectRatio: "3/4",
+                width: "100%",
+                background: "rgb(26,26,26)",
+                border: "1px solid rgba(255,255,255,0.06)",
               }}
             >
               {c.photo_url ? (
@@ -225,26 +225,26 @@ export default function AboutSection({ content }: AboutSectionProps) {
                 /* Placeholder */
                 <div
                   style={{
-                    position:       "absolute",
-                    inset:          0,
-                    display:        "flex",
-                    flexDirection:  "column",
-                    alignItems:     "center",
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
                     justifyContent: "center",
-                    gap:            "16px",
-                    background:     "linear-gradient(135deg, rgba(26,26,26,1) 0%, rgba(36,36,36,1) 100%)",
+                    gap: "16px",
+                    background: "linear-gradient(135deg, rgba(26,26,26,1) 0%, rgba(36,36,36,1) 100%)",
                   }}
                 >
                   <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="8" r="4" stroke="rgba(212,175,55,0.3)" strokeWidth="1.5"/>
-                    <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="rgba(212,175,55,0.3)" strokeWidth="1.5" strokeLinecap="round"/>
+                    <circle cx="12" cy="8" r="4" stroke="rgba(212,175,55,0.3)" strokeWidth="1.5" />
+                    <path d="M4 20c0-4 3.58-7 8-7s8 3 8 7" stroke="rgba(212,175,55,0.3)" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                   <span
                     style={{
-                      fontFamily:    "var(--font-display)",
-                      fontSize:      "13px",
+                      fontFamily: "var(--font-display)",
+                      fontSize: "13px",
                       letterSpacing: "0.15em",
-                      color:         "rgba(160,160,160,0.4)",
+                      color: "rgba(160,160,160,0.4)",
                     }}
                   >
                     Photographer Photo
@@ -255,28 +255,28 @@ export default function AboutSection({ content }: AboutSectionProps) {
               {/* Gold corner accent */}
               <div
                 style={{
-                  position:    "absolute",
-                  top:         0,
-                  right:       0,
-                  width:       "80px",
-                  height:      "80px",
-                  borderTop:   "2px solid rgba(212,175,55,0.5)",
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  width: "80px",
+                  height: "80px",
+                  borderTop: "2px solid rgba(212,175,55,0.5)",
                   borderRight: "2px solid rgba(212,175,55,0.5)",
-                  borderRadius:"0 16px 0 0",
-                  pointerEvents:"none",
+                  borderRadius: "0 16px 0 0",
+                  pointerEvents: "none",
                 }}
               />
               <div
                 style={{
-                  position:     "absolute",
-                  bottom:       0,
-                  left:         0,
-                  width:        "80px",
-                  height:       "80px",
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  width: "80px",
+                  height: "80px",
                   borderBottom: "2px solid rgba(212,175,55,0.5)",
-                  borderLeft:   "2px solid rgba(212,175,55,0.5)",
+                  borderLeft: "2px solid rgba(212,175,55,0.5)",
                   borderRadius: "0 0 0 16px",
-                  pointerEvents:"none",
+                  pointerEvents: "none",
                 }}
               />
             </div>
@@ -284,37 +284,37 @@ export default function AboutSection({ content }: AboutSectionProps) {
             {/* Floating tag */}
             <div
               style={{
-                position:     "absolute",
-                bottom:       "32px",
-                right:        "-16px",
-                background:   "#D4AF37",
+                position: "absolute",
+                bottom: "32px",
+                right: "-16px",
+                background: "#D4AF37",
                 borderRadius: "8px",
-                padding:      "12px 20px",
-                boxShadow:    "0 8px 32px rgba(0,0,0,0.5)",
+                padding: "12px 20px",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
               }}
               className="about-tag"
             >
               <span
                 style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "11px",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "11px",
                   letterSpacing: "0.15em",
-                  color:         "#0A0A0A",
+                  color: "#0A0A0A",
                   textTransform: "uppercase",
-                  display:       "block",
+                  display: "block",
                 }}
               >
                 Based in
               </span>
               <span
                 style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "18px",
+                  fontFamily: "var(--font-display)",
+                  fontSize: "18px",
                   letterSpacing: "0.06em",
-                  color:         "#0A0A0A",
-                  display:       "block",
-                  lineHeight:    1.2,
-                  marginTop:     "2px",
+                  color: "#0A0A0A",
+                  display: "block",
+                  lineHeight: 1.2,
+                  marginTop: "2px",
                 }}
               >
                 {c.location ?? "Honnavar"}
