@@ -1,16 +1,16 @@
-import { getSection }    from "@/actions/sections";
+import { getSection } from "@/actions/sections";
 import { getPackages, getAddons } from "@/actions/packages";
-import { getTestimonials }        from "@/actions/testimonials";
-import { getMedia }               from "@/actions/media";
+import { getTestimonials } from "@/actions/testimonials";
+import { getMedia } from "@/actions/media";
 
-import HeroSection         from "@/components/HeroSection";
-import AboutSection        from "@/components/AboutSection";
-import PortfolioSection    from "@/components/PortfolioSection";
-import PackagesSection     from "@/components/PackagesSection";
+import HeroSection from "@/components/HeroSection";
+import AboutSection from "@/components/AboutSection";
+import PortfolioSection from "@/components/PortfolioSection";
+import PackagesSection from "@/components/PackagesSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
-import ReelsSection        from "@/components/ReelsSection";
-import ContactSection      from "@/components/ContactSection";
-import FooterSection       from "@/components/FooterSection";
+import ReelsSection from "@/components/ReelsSection";
+import ContactSection from "@/components/ContactSection";
+import FooterSection from "@/components/FooterSection";
 
 import type {
   HeroContent,
@@ -26,13 +26,13 @@ export const revalidate = 60;
 
 const FALLBACK_SLIDES: HeroContent["slides"] = [
   {
-    id:          "fallback-1",
-    image_url:   "",
-    alt_text:    "Wedding photography by Aksway",
-    headline:    "Capturing Your Eternal Moments",
+    id: "fallback-1",
+    image_url: "",
+    alt_text: "Wedding photography by Aksway",
+    headline: "Capturing Your Eternal Moments",
     subheadline: "Professional Wedding Photography in Honnavar",
-    cta_text:    "View Our Work",
-    cta_link:    "#portfolio",
+    cta_text: "View Our Work",
+    cta_link: "#portfolio",
   },
 ];
 
@@ -75,10 +75,10 @@ export default async function HomePage() {
   // ── Portfolio ─────────────────────────────────────
   const portfolioRaw = portfolioSection?.content as Record<string, unknown> | null;
   const portfolioMeta: PortfolioContent = {
-    headline:             (portfolioRaw?.headline as string)              ?? "Our Portfolio",
-    subheadline:          (portfolioRaw?.subheadline as string)           ?? "A glimpse into our work",
+    headline: (portfolioRaw?.headline as string) ?? "Our Portfolio",
+    subheadline: (portfolioRaw?.subheadline as string) ?? "A glimpse into our work",
     show_category_filter: (portfolioRaw?.show_category_filter as boolean) ?? true,
-    drive_albums:         (portfolioRaw?.drive_albums as DriveAlbum[])   ?? [],
+    drive_albums: (portfolioRaw?.drive_albums as DriveAlbum[]) ?? [],
   };
   const mediaItems = (portfolioMedia ?? []) as {
     id: string;
@@ -119,7 +119,7 @@ export default async function HomePage() {
         testimonials={testimonials as Parameters<typeof TestimonialsSection>[0]["testimonials"]}
       />
 
-      <ReelsSection content={reelsContent} />
+      {/* <ReelsSection content={reelsContent} /> */}
 
       <ContactSection content={contactContent} />
 
