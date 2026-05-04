@@ -10,8 +10,8 @@ interface ContactSectionProps {
 const FALLBACK: ContactContent = {
   headline:    "Let's Tell Your Story",
   subheadline: "Reach out to check availability or book a consultation",
-  phone:       "+91 98765 43210",
-  whatsapp:    "919876543210",
+  phone:       "+91 83100 12199",
+  whatsapp:    "918310012199",
   email:       "hello@aksway.in",
   address:     "Honnavar, Karnataka, India",
 };

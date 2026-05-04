@@ -15,7 +15,7 @@ const FALLBACK: FooterContent = {
     instagram: "https://instagram.com/aksway.in",
     facebook:  "",
     youtube:   "",
-    whatsapp:  "919876543210",
+    whatsapp:  "918310012199",
   },
   quick_links: [
     { label: "Home",       href: "#home" },

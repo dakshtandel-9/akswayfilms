@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import Loader from "@/components/Loader";
 
 const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body
         className={`${bebasNeue.variable} ${cormorantGaramond.variable} ${inter.variable} antialiased`}
       >
+        <Loader />
         <Header />
         {children}
       </body>
