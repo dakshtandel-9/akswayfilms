@@ -43,6 +43,11 @@ export const metadata: Metadata = {
     locale: "en_IN",
     type: "website",
   },
+  icons: {
+    icon: "https://res.cloudinary.com/dlk0wvka6/image/upload/v1777889152/aksway_h8rcff.png",
+    shortcut: "https://res.cloudinary.com/dlk0wvka6/image/upload/v1777889152/aksway_h8rcff.png",
+    apple: "https://res.cloudinary.com/dlk0wvka6/image/upload/v1777889152/aksway_h8rcff.png",
+  },
 };
 
 export default function RootLayout({

@@ -1,0 +1,79 @@
+{
+  "packages": [
+    {
+      "id": "1",
+      "name": "Basic Package",
+      "price_inr": 35000,
+      "badge": "",
+      "features": [
+        "Wedding photography (Full coverage)",
+        "Traditional + candid photos",
+        "150+ edited photos",
+        "All photos soft copy (Google Drive / Pendrive)"
+      ],
+      "is_highlighted": false
+    },
+    {
+      "id": "2",
+      "name": "Standard Package",
+      "price_inr": 65000,
+      "badge": "Most Selling 🔥",
+      "features": [
+        "Wedding + Haldi photography",
+        "Candid photography (Full event)",
+        "Cinematic highlight video 🎬",
+        "250+ edited photos",
+        "Album (30 pages premium design)"
+      ],
+      "is_highlighted": true
+    },
+    {
+      "id": "3",
+      "name": "Premium Package",
+      "price_inr": 110000,
+      "badge": "Full Experience 🎬",
+      "features": [
+        "Prewedding shoot 📸",
+        "Wedding + Haldi full coverage",
+        "Candid + traditional photography",
+        "Cinematic wedding film 🎬",
+        "Highlight video",
+        "400+ edited photos",
+        "Premium Album (30 pages)"
+      ],
+      "is_highlighted": false
+    }
+  ],
+  "addons": [
+    {
+      "id": "a1",
+      "name": "Prewedding Shoot",
+      "price_display": "₹30,000",
+      "description": ""
+    },
+    {
+      "id": "a2",
+      "name": "Haldi",
+      "price_display": "₹12,000",
+      "description": ""
+    },
+    {
+      "id": "a3",
+      "name": "Candid",
+      "price_display": "₹10,000",
+      "description": ""
+    },
+    {
+      "id": "a4",
+      "name": "Cinematic Highlights",
+      "price_display": "₹13,000",
+      "description": ""
+    },
+    {
+      "id": "a5",
+      "name": "Extra Album Pages",
+      "price_display": "₹2,000 – ₹5,000",
+      "description": ""
+    }
+  ]
+}

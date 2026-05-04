@@ -1,0 +1,49 @@
+{
+  "slides": [
+    {
+      "id": "1",
+      "image_url": "https://res.cloudinary.com/dlk0wvka6/image/upload/f_auto,q_auto:good/v1777890179/imgi_2_image_n4eau8.webp",
+      "alt_text": "Wedding photography by Aksway",
+      "headline": "We Capture Moments You Can Feel",
+      "subheadline": "Trusted by couples across Honnavar for unforgettable wedding memories",
+      "cta_text": "View Packages",
+      "cta_link": "#packages"
+    },
+    {
+      "id": "2",
+      "image_url": "https://res.cloudinary.com/dlk0wvka6/image/upload/f_auto,q_auto:good/v1777890177/imgi_5_1775580034195-bahneckh61q_igi55z.jpg",
+      "alt_text": "Wedding photography by Aksway",
+      "headline": "YOUR LOVE STORY, LIKE A MOVIE",
+      "subheadline": "Creative pre-wedding shoots with cinematic storytelling & natural moments",
+      "cta_text": "View Packages",
+      "cta_link": "#packages"
+    },
+    {
+      "id": "3",
+      "image_url": "https://res.cloudinary.com/dlk0wvka6/image/upload/f_auto,q_auto:good/v1777890176/imgi_3_image_od0f7g.webp",
+      "alt_text": "Wedding photography by Aksway",
+      "headline": "CINEMATIC WEDDING PHOTOGRAPHY",
+      "subheadline": "Capturing real emotions, candid moments & timeless memories in Honnavar",
+      "cta_text": "View Packages",
+      "cta_link": "#packages"
+    },
+    {
+      "id": "4",
+      "image_url": "https://res.cloudinary.com/dlk0wvka6/image/upload/f_auto,q_auto:good/v1777890453/imgi_92_1775579953621-hcc71es3lz_qosdjg.jpg",
+      "alt_text": "Wedding photography by Aksway",
+      "headline": "Capturing Love That Last Forever",
+      "subheadline": "Cinamatic Wedding Photography in Honnavar",
+      "cta_text": "View Packages",
+      "cta_link": "#packages"
+    },
+    {
+      "id": "5",
+      "image_url": "https://res.cloudinary.com/dlk0wvka6/image/upload/f_auto,q_auto:good/v1777890453/imgi_16_image_qftgku.webp",
+      "alt_text": "Wedding photography by Aksway",
+      "headline": "Capturing Love That Last Forever",
+      "subheadline": "Cinamatic Wedding Photography in Honnavar",
+      "cta_text": "View Packages",
+      "cta_link": "#packages"
+    }
+  ]
+}

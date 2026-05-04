@@ -1,5 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { FooterContent } from "@/lib/validations";
+
+const LOGO_URL = "https://res.cloudinary.com/dlk0wvka6/image/upload/v1777889152/aksway_h8rcff.png";
 
 interface FooterSectionProps {
   content: FooterContent | null;
@@ -100,44 +103,16 @@ export default function FooterSection({ content }: FooterSectionProps) {
                 textDecoration: "none",
                 display:        "inline-flex",
                 alignItems:     "center",
-                gap:            "10px",
                 marginBottom:   "20px",
               }}
             >
-              <span
-                style={{
-                  width:          "36px",
-                  height:         "36px",
-                  borderRadius:   "50%",
-                  border:         "1.5px solid #D4AF37",
-                  display:        "flex",
-                  alignItems:     "center",
-                  justifyContent: "center",
-                  flexShrink:     0,
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily:    "var(--font-display)",
-                    fontSize:      "16px",
-                    color:         "#D4AF37",
-                    lineHeight:    1,
-                  }}
-                >
-                  A
-                </span>
-              </span>
-              <span
-                style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "clamp(24px, 2.5vw, 32px)",
-                  letterSpacing: "0.12em",
-                  color:         "#FFFFFF",
-                  lineHeight:    1,
-                }}
-              >
-                AKS<span style={{ color: "#D4AF37" }}>WAY</span>
-              </span>
+              <Image
+                src={LOGO_URL}
+                alt="Aksway Photography"
+                width={240}
+                height={80}
+                style={{ height: "clamp(44px, 4vw, 60px)", width: "auto", display: "block" }}
+              />
             </Link>
 
             {c.tagline && (

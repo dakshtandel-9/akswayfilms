@@ -2,7 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+
+const LOGO_URL = "https://res.cloudinary.com/dlk0wvka6/image/upload/v1777889152/aksway_h8rcff.png";
 
 /* ─── Nav data ────────────────────────────────────────── */
 const NAV_LINKS = [
@@ -87,47 +90,17 @@ export default function Header() {
             href="/"
             id="header-logo"
             aria-label="Aksway Photography — Home"
-            style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "10px" }}
+            className="logo-circle"
+            style={{ textDecoration: "none", display: "flex", alignItems: "center", transition: "transform 350ms cubic-bezier(0.34,1.56,0.64,1)" }}
           >
-            <span
-              style={{
-                width:          "34px",
-                height:         "34px",
-                borderRadius:   "50%",
-                border:         "1.5px solid #D4AF37",
-                display:        "flex",
-                alignItems:     "center",
-                justifyContent: "center",
-                transition:     "transform 350ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 350ms cubic-bezier(0.25,0,0,1)",
-                flexShrink:     0,
-              }}
-              className="logo-circle"
-            >
-              <span
-                style={{
-                  fontFamily:    "var(--font-display)",
-                  fontSize:      "15px",
-                  color:         "#D4AF37",
-                  lineHeight:    1,
-                  letterSpacing: "0.04em",
-                }}
-              >
-                A
-              </span>
-            </span>
-
-            <span
-              style={{
-                fontFamily:    "var(--font-display)",
-                fontSize:      "clamp(26px, 2.4vw, 34px)",
-                fontWeight:    400,
-                letterSpacing: "0.12em",
-                color:         "#FFFFFF",
-                lineHeight:    1,
-              }}
-            >
-              AKS<span style={{ color: "#D4AF37" }}>WAY</span>
-            </span>
+            <Image
+              src={LOGO_URL}
+              alt="Aksway Photography"
+              width={240}
+              height={80}
+              priority
+              style={{ height: "clamp(26px, 2.2vw, 36px)", width: "auto", display: "block" }}
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -350,8 +323,7 @@ export default function Header() {
         .nav-link[data-active="true"] { color: #D4AF37 !important; }
 
         .logo-circle:hover {
-          transform: scale(1.1) !important;
-          box-shadow: 0 0 16px rgba(212,175,55,0.3) !important;
+          transform: scale(1.05) !important;
         }
 
         .cta-book:hover {
